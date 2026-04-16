@@ -5,8 +5,6 @@
 
   environment.systemPackages = with pkgs;
   [
-    vscode
-    git
     gh
     python3
     obsidian

@@ -3,24 +3,24 @@
 {
   programs.git = {
     enable = true;
-    safe = {
-      directory = "/etc/nixos";
-    };
     
-    userName = "Njcampos1"; 
-    userEmail = "njcampos1@uc.cl"; 
-
+    userName = "njcampos1"; 
+    userEmail = "njcampos1@uc.cl";
+    
     extraConfig = {
+      safe.directory = "/etc/nixos";
+      
       core.sshCommand = "ssh -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes";
       init.defaultBranch = "main";
+      pull.rebase = true;
     };
-
+    
     includes = [
       {
         condition = "gitdir:~/dev/azure-projects/";
         contents = {
           user = {
-            email = "njcampos1@uc.cl"; 
+            email = "njcampos1@uc.cl";
             name = "Nestor Campos (Azure)"; 
           };
           core = {

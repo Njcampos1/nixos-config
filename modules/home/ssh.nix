@@ -2,7 +2,6 @@
 { config, pkgs, ... }:
 
 let
-
   secrets = if builtins.pathExists ./azure-ip.nix 
             then import ./azure-ip.nix 
             else { azure_ip = "0.0.0.0"; }; 
@@ -25,18 +24,6 @@ in
         identityFile = "~/.ssh/keys/upper-key.pem";
         identitiesOnly = true;
       };
-    };
-  };
-
-  programs.git = {
-    enable = true;
-    settings = {
-      user = {
-        name = "njcampos1";
-        email = "njcampos1@uc.cl"; 
-      };
-      init.defaultBranch = "main";
-      pull.rebase = true;
     };
   };
 }
