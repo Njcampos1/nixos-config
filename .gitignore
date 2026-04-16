@@ -1,0 +1,6 @@
+modules/home/azure-ip.nix
+*.pem
+*.key
+
+result
+.direnv/
