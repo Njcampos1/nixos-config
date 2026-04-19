@@ -17,6 +17,8 @@
         ms-vscode-remote.remote-ssh
         yzhang.markdown-all-in-one
         ms-azuretools.vscode-docker
+        github.copilot
+        github.copilot-chat
       ];
   };
 
