@@ -10,6 +10,20 @@
   home.homeDirectory = "/home/${config.home.username}";
   home.stateVersion = "25.11"; 
 
+  gtk = {
+    enable = true;
+    theme = {
+      name = "Breeze-Dark";
+      package = pkgs.kdePackages.breeze-gtk;
+    };
+  };
+
+  qt = {
+    enable = true;
+    platformTheme.name = "kde";
+    style.name = "breeze-dark";
+  };
+ 
   programs.vscode = {
       enable = true;
       package = pkgs.vscode;
@@ -44,5 +58,6 @@
   home.packages = with pkgs; [
     gnumake
     gcc
+    libreoffice-fresh
   ];
 }

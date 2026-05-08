@@ -10,6 +10,7 @@
     ./modules/desktop/plasma.nix
     ./modules/apps/dev-tools.nix
     ./modules/apps/postgresql.nix
+    ./modules/apps/gui-apps.nix
     
   ];
 

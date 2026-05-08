@@ -11,6 +11,7 @@
     discord
     telegram-desktop
     kdePackages.kate
+    zed-editor
   ];
   programs.firefox.enable = true;
 }
