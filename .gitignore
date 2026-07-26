@@ -3,4 +3,5 @@ modules/home/azure-ip.nix
 *.key
 
 result
-.direnv/
+.direnv/secrets/
+secrets/
