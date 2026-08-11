@@ -21,6 +21,7 @@
     ./modules/apps/minecraft-client.nix
     ./modules/services/minecraft-server.nix
     ./modules/services/playit.nix
+    ./modules/services/minecraft-backup.nix
   ];
 
   nix.settings.experimental-features = [
