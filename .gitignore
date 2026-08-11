@@ -1,7 +1,2 @@
-modules/home/azure-ip.nix
-*.pem
-*.key
-
-result
-.direnv/secrets/
-secrets/
+repomix-output.xml
+*.backup

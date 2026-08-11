@@ -6,9 +6,14 @@
     device = "nodev";
     efiSupport = true;
     useOSProber = true;
-    efiInstallAsRemovable = true;
+    # Eliminamos efiInstallAsRemovable
   };
-  boot.loader.efi.canTouchEfiVariables = false;
+  
+  # CAMBIO CRÍTICO: Debe ser true para que tu Lenovo guarde a NixOS en el menú de arranque
+  boot.loader.efi.canTouchEfiVariables = true;
+  
+  # Es buena práctica indicarle dónde montamos la partición EFI
+  boot.loader.efi.efiSysMountPoint = "/boot";
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 }
