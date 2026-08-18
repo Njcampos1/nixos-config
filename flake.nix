@@ -20,13 +20,23 @@
     }@inputs:
     {
       nixosConfigurations = {
-        nixos = nixpkgs.lib.nixosSystem {
+        escritorio = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-
           specialArgs = { inherit inputs; };
-
           modules = [
             ./configuration.nix
+            ./hosts/escritorio/hardware-configuration.nix
+            home-manager.nixosModules.home-manager
+            playit-nixos-module.nixosModules.default
+          ];
+        };
+
+        laptop = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs; };
+          modules = [
+            ./configuration.nix
+            ./hosts/laptop/hardware-configuration.nix
             home-manager.nixosModules.home-manager
             playit-nixos-module.nixosModules.default
           ];

@@ -8,7 +8,6 @@
 
 {
   imports = [
-    ./hardware-configuration.nix
     ./modules/core/boot.nix
     ./modules/core/network.nix
     ./modules/core/users.nix
