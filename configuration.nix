@@ -14,6 +14,7 @@
     ./modules/core/hardware-optimizations.nix
     ./modules/desktop/plasma.nix
     ./modules/apps/dev-tools.nix
+    ./modules/apps/dotnet.nix
     ./modules/apps/postgresql.nix
     ./modules/apps/gui-apps.nix
     ./modules/desktop/hyprland.nix

@@ -25,8 +25,4 @@ in
       ];
   };
 
-  # Instalamos Cursor (usamos unstable porque se actualiza muy rápido)
-  home.packages = [
-    pkgs-unstable.code-cursor
-  ];
 }

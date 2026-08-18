@@ -1,5 +1,16 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
+let
+  pkgs-unstable = import inputs.nixpkgs-unstable {
+    system = pkgs.system;
+    config.allowUnfree = true;
+  };
+in
 {
   imports = [
     ./ssh.nix
@@ -31,22 +42,28 @@
     style.name = "breeze-dark";
   };
 
-  home.packages = with pkgs; [
-    brave
-    gnumake
-    gcc
-    libreoffice-fresh
-    cliphist
-    hyprlock
-    hypridle
-    pavucontrol
-    brightnessctl
-    nwg-look
-    seahorse
-    xfce.thunar
-    evince
-    yazi
-  ];
+  home.packages =
+    with pkgs;
+    [
+      brave
+      gnumake
+      gcc
+      libreoffice-fresh
+      cliphist
+      hyprlock
+      hypridle
+      pavucontrol
+      brightnessctl
+      nwg-look
+      alacritty
+      seahorse
+      xfce.thunar
+      evince
+      yazi
+    ]
+    ++ [
+      pkgs-unstable.claude-code
+    ];
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
