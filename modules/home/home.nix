@@ -10,6 +10,7 @@
     ./programs/vscode.nix
     ./programs/zsh.nix
     ./programs/direnv.nix
+    ./programs/rider.nix
   ];
 
   home.username = "njcampos1";
