@@ -6,7 +6,7 @@
   # PAQUETES: Herramientas del sistema y soporte visual
   # ─────────────────────────────────────────────────────────────────────────────
   home.packages = with pkgs; [
-    waybar
+    # waybar → gestionado por programs.waybar en waybar.nix
     swww
     rofi
     kitty
@@ -15,7 +15,6 @@
     grim
     slurp
     wl-clipboard
-    xfce.thunar
     swayosd # OSD visual para volumen y brillo
     brightnessctl # Control de brillo por consola
     pavucontrol # Mezclador de audio visual
@@ -125,18 +124,20 @@
 
       # ── Reglas de Ventana ──
       windowrulev2 = [
-        "float, class:^(thunar)$"
-        "size 900 600, class:^(thunar)$"
-        "center, class:^(thunar)$"
+        "float, class:^(dolphin)$"
+        "size 1100 700, class:^(dolphin)$"
+        "center, class:^(dolphin)$"
+        "opacity 0.88 0.82, class:^(dolphin)$"  # Activa el blur de fondo de Hyprland
         "opacity 0.95 0.90, class:^(kitty)$"
+        "opacity 0.92 0.85, class:^(Alacritty)$"
       ];
 
       # ── Configuración Completa de Atajos de Teclado ──
       bind = [
         # 🚀 Aplicaciones y Sistema
-        "$mod, Q, exec, kitty"
+        "$mod, Q, exec, alacritty"
         "$mod, R, exec, ~/.config/rofi/launcher/launcher.sh"
-        "$mod, E, exec, thunar"
+        "$mod, E, exec, dolphin"
         "$mod, B, exec, cliphist list | rofi -dmenu -p 'Portapapeles' | cliphist decode | wl-copy"
         "$mod SHIFT, L, exec, hyprlock"
         "$mod, W, exec, pkill -SIGUSR1 waybar"
@@ -220,8 +221,7 @@
       exec-once = ${pkgs.kdePackages.polkit-kde-agent-1}/libexec/polkit-kde-authentication-agent-1
 
       # ── Autostart de Servicios ──
-      exec-once = waybar
-      exec-once = sleep 1 && pkill -SIGUSR1 waybar
+      # waybar → arranca automáticamente vía systemd (programs.waybar.systemd.enable)
       exec-once = swww-daemon
       exec-once = swww img ~/Pictures/windows.jpg --transition-type wipe --transition-fps 144
       exec-once = swayosd-server

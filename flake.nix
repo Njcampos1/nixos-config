@@ -8,6 +8,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     playit-nixos-module.url = "github:pedorich-n/playit-nixos-module";
+    antigravity-nix = {
+      url = "github:jacopone/antigravity-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs =
     {
@@ -16,6 +20,7 @@
       nixpkgs-unstable,
       home-manager,
       playit-nixos-module,
+      antigravity-nix,
       ...
     }@inputs:
     {
