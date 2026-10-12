@@ -89,18 +89,16 @@
           white = "#eff0f1";
         };
 
-        hints = [
-          {
-            start = {
-              foreground = "#1a1a2e";
-              background = "#f5c2e7";
-            };
-            end = {
-              foreground = "#1a1a2e";
-              background = "#f5c2e7";
-            };
-          }
-        ];
+        hints = {
+          start = {
+            foreground = "#1a1a2e";
+            background = "#f5c2e7";
+          };
+          end = {
+            foreground = "#1a1a2e";
+            background = "#f5c2e7";
+          };
+        };
 
         search = {
           matches = {

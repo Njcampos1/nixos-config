@@ -10,6 +10,66 @@ let
     system = pkgs.system;
     config.allowUnfree = true;
   };
+
+  # claude-code en nixpkgs-unstable suele ir detrás de los releases de Anthropic,
+  # y además el binario que distribuyen dejó de venir comprimido en .zst (la
+  # derivación de nixpkgs asume zstd, así que no basta con pisar la versión ahí).
+  # Este paquete descarga el binario oficial directo y lo instala sin ese paso.
+  # Para actualizar:
+  #   curl -s https://downloads.claude.ai/claude-code-releases/latest
+  #   curl -s https://downloads.claude.ai/claude-code-releases/<version>/manifest.json
+  # y copiar version + checksum de platforms.linux-x64.
+  claude-code-latest =
+    let
+      version = "2.1.295";
+      checksum = "4503bfe11a6c7fcc1e0b39b5e0d347c04248f750b03b0977b3ad6b531fe6f358";
+    in
+    pkgs-unstable.stdenvNoCC.mkDerivation {
+      pname = "claude-code";
+      inherit version;
+
+      src = pkgs-unstable.fetchurl {
+        url = "https://downloads.claude.ai/claude-code-releases/${version}/linux-x64/claude";
+        sha256 = checksum;
+      };
+
+      dontUnpack = true;
+      dontBuild = true;
+      dontStrip = true;
+
+      nativeBuildInputs = [
+        pkgs-unstable.makeBinaryWrapper
+        pkgs-unstable.autoPatchelfHook
+      ];
+
+      installPhase = ''
+        runHook preInstall
+        mkdir -p $out/bin
+        install -m755 $src $out/bin/claude
+        wrapProgram $out/bin/claude \
+          --set DISABLE_AUTOUPDATER 1 \
+          --set-default FORCE_AUTOUPDATE_PLUGINS 1 \
+          --set DISABLE_INSTALLATION_CHECKS 1 \
+          --set USE_BUILTIN_RIPGREP 0 \
+          --prefix LD_LIBRARY_PATH : ${pkgs-unstable.lib.makeLibraryPath [ pkgs-unstable.alsa-lib ]} \
+          --prefix PATH : ${
+            pkgs-unstable.lib.makeBinPath [
+              pkgs-unstable.procps
+              pkgs-unstable.ripgrep
+              pkgs-unstable.bubblewrap
+              pkgs-unstable.socat
+            ]
+          }
+        runHook postInstall
+      '';
+
+      meta = {
+        description = "Agentic coding tool that lives in your terminal";
+        mainProgram = "claude";
+        license = pkgs-unstable.lib.licenses.unfree;
+        platforms = [ "x86_64-linux" ];
+      };
+    };
 in
 {
   imports = [
@@ -65,7 +125,7 @@ in
       yazi
     ]
     ++ [
-      pkgs-unstable.claude-code
+      claude-code-latest
     ];
   xdg.mimeApps = {
     enable = true;
